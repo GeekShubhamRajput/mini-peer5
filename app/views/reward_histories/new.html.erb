@@ -1,0 +1,24 @@
+<h1>Give Reward</h1>
+
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with(url: reward_histories_path(@user), local: true) do |form| %>
+
+  <div>
+    <%= form.label :given_to, "Select Recipient" %>
+    <%= form.select :given_to, options_from_collection_for_select(@users, :id, :name), prompt: 'Select a user' %>
+  </div>
+
+  <div>
+    <%= form.label :points, "Enter Points to Give" %>
+    <%= form.number_field :points, min: 1, max: [100, @user.p5_balance].min %>
+    <p>Available P5 Balance: <%= @user.p5_balance %></p>
+  </div>
+
+  <div>
+    <%= form.submit "Give Reward" %>
+    <%= link_to 'Cancel', reward_histories_path(@user) %>
+  </div>
+<% end %>

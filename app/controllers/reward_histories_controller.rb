@@ -11,8 +11,8 @@ class RewardHistoriesController < ApplicationController
 
   def create
     giver = User.find(params[:id])
-    receiver = User.find(params[:reward_history][:given_to])
-    points = params[:reward_history][:points].to_i
+    receiver = User.find(params[:given_to])
+    points = params[:points].to_i
 
     if giver.p5_balance >= points
       RewardHistory.transaction do
@@ -20,13 +20,14 @@ class RewardHistoriesController < ApplicationController
         receiver.update!(reward_balance: receiver.reward_balance + points)
         RewardHistory.create!(given_by: giver.id, given_to: receiver.id, points: points)
       end
-      redirect_to user_rewards_path(giver), notice: 'Reward given successfully!'
+      redirect_to reward_histories_path(giver), notice: 'Reward given successfully!'
     else
-      redirect_to new_user_reward_path(giver), alert: 'Insufficient P5 balance!'
+      redirect_to new_reward_history_path(giver), alert: 'Insufficient P5 balance!'
     end
   end
 
   def destroy
+    binding.pry
     reward = RewardHistory.find(params[:id])
     giver = reward.giver
     receiver = reward.receiver
@@ -36,6 +37,6 @@ class RewardHistoriesController < ApplicationController
       receiver.update!(reward_balance: receiver.reward_balance - reward.points)
       reward.destroy!
     end
-    redirect_to user_rewards_path(giver), notice: 'Transaction reversed successfully!'
+    redirect_to reward_histories_path(giver), notice: 'Transaction reversed successfully!'
   end
 end

@@ -1,24 +1,17 @@
-# README
+# Mini Peerfives
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting Started
 
-Things you may want to cover:
+```bash
+# Clone the repository
+git clone <repo-url>
+cd MiniPeerfives
 
-* Ruby version
+# Install dependencies
+bundle install
 
-* System dependencies
+# Setup database
+rails db:create db:migrate
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Start the server
+rails s
