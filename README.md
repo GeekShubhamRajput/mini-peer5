@@ -4,7 +4,7 @@
 
 ```bash
 # Clone the repository
-git clone <repo-url>
+git clone https://github.com/GeekShubhamRajput/mini-peer5
 cd MiniPeerfives
 
 # Install dependencies
